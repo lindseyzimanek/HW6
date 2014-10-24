@@ -1,4 +1,4 @@
-﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Default.aspx.vb" Inherits="_Default" %>
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="RecipeDetails.aspx.vb" Inherits="RecipeDetails" %>
 
 <!DOCTYPE html>
 
@@ -10,8 +10,7 @@
     <form id="form1" runat="server">
     <div>
     
-        <asp:SqlDataSource ID="sql_recipes" runat="server" ConnectionString="<%$ ConnectionStrings:dbo.lzimanek_hw6_recipes %>" 
-            SelectCommand="SELECT * FROM [lzimanek_hw6_recipes]" DeleteCommand="DELETE FROM [lzimanek_hw6_recipes] WHERE [recipeID] = @recipeID" InsertCommand="INSERT INTO [lzimanek_hw6_recipes] ([recipe_name], [submitted_by], [ingredient1], [ingredient2], [ingredient3], [ingredient4], [ingredient5], [preparation], [notes]) VALUES (@recipe_name, @submitted_by, @ingredient1, @ingredient2, @ingredient3, @ingredient4, @ingredient5, @preparation, @notes)" UpdateCommand="UPDATE [lzimanek_hw6_recipes] SET [recipe_name] = @recipe_name, [submitted_by] = @submitted_by, [ingredient1] = @ingredient1, [ingredient2] = @ingredient2, [ingredient3] = @ingredient3, [ingredient4] = @ingredient4, [ingredient5] = @ingredient5, [preparation] = @preparation, [notes] = @notes WHERE [recipeID] = @recipeID">
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dbo.lzimanek_hw6_recipes %>" DeleteCommand="DELETE FROM [lzimanek_hw6_recipes] WHERE [recipeID] = @recipeID" InsertCommand="INSERT INTO [lzimanek_hw6_recipes] ([recipe_name], [submitted_by], [ingredient1], [ingredient2], [ingredient3], [ingredient4], [ingredient5], [preparation], [notes]) VALUES (@recipe_name, @submitted_by, @ingredient1, @ingredient2, @ingredient3, @ingredient4, @ingredient5, @preparation, @notes)" SelectCommand="SELECT * FROM [lzimanek_hw6_recipes] WHERE ([recipeID] = @recipeID)" UpdateCommand="UPDATE [lzimanek_hw6_recipes] SET [recipe_name] = @recipe_name, [submitted_by] = @submitted_by, [ingredient1] = @ingredient1, [ingredient2] = @ingredient2, [ingredient3] = @ingredient3, [ingredient4] = @ingredient4, [ingredient5] = @ingredient5, [preparation] = @preparation, [notes] = @notes WHERE [recipeID] = @recipeID">
             <DeleteParameters>
                 <asp:Parameter Name="recipeID" Type="Int32" />
             </DeleteParameters>
@@ -26,6 +25,9 @@
                 <asp:Parameter Name="preparation" Type="String" />
                 <asp:Parameter Name="notes" Type="String" />
             </InsertParameters>
+            <SelectParameters>
+                <asp:QueryStringParameter Name="recipeID" QueryStringField="recipeID" Type="Int32" />
+            </SelectParameters>
             <UpdateParameters>
                 <asp:Parameter Name="recipe_name" Type="String" />
                 <asp:Parameter Name="submitted_by" Type="String" />
@@ -38,13 +40,11 @@
                 <asp:Parameter Name="notes" Type="String" />
                 <asp:Parameter Name="recipeID" Type="Int32" />
             </UpdateParameters>
-
         </asp:SqlDataSource>
-        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/NewRecipe.aspx">Add A New Recipe</asp:HyperLink>
         <br />
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="recipeID" DataSourceID="sql_recipes" AllowPaging="True" AllowSorting="True">
-            <Columns>
-                <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+        <asp:DetailsView ID="DetailsView1" runat="server" AutoGenerateRows="False" DataKeyNames="recipeID" DataSourceID="SqlDataSource1" Height="50px" Width="340px">
+            <Fields>
+                <asp:BoundField DataField="recipeID" HeaderText="Recipe ID" InsertVisible="False" ReadOnly="True" SortExpression="recipeID" />
                 <asp:BoundField DataField="recipe_name" HeaderText="Recipe Name" SortExpression="recipe_name" />
                 <asp:BoundField DataField="submitted_by" HeaderText="Submitted By" SortExpression="submitted_by" />
                 <asp:BoundField DataField="ingredient1" HeaderText="Ingredient 1" SortExpression="ingredient1" />
@@ -54,8 +54,9 @@
                 <asp:BoundField DataField="ingredient5" HeaderText="Ingredient 5" SortExpression="ingredient5" />
                 <asp:BoundField DataField="preparation" HeaderText="Preparation" SortExpression="preparation" />
                 <asp:BoundField DataField="notes" HeaderText="Notes" SortExpression="notes" />
-            </Columns>
-        </asp:GridView>
+                <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+            </Fields>
+        </asp:DetailsView>
     
     </div>
     </form>
