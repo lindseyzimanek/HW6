@@ -5,7 +5,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link rel="stylesheet" type="text/css" href="~/css/stylesheet.css" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -43,10 +42,11 @@
             </UpdateParameters>
         </asp:SqlDataSource>
         <br />
-        <span class="deletedRecipe>"<asp:Label ID="lbl_deletedRecipe" runat="server"></asp:Label></span>
+        <asp:Label ID="lblDeletedRecipe" runat="server"></asp:Label>
         <br />
         <asp:FormView ID="FormView1" runat="server" DataKeyNames="recipeID" DataSourceID="SqlDataSource1">
-           
+            
+            
             <ItemTemplate>
 
                  <table>
@@ -56,11 +56,11 @@
                         </td>
 
                         <td style="text-align:left;">
-                            <asp:Label ID="lbl_recipeID" runat="server" Text='<%# Eval("recipeID") %>' />
+                            <asp:Label ID="recipeIDLabel" runat="server" Text='<%# Eval("recipeID") %>' />
                        </td>
 
                          <td style="text-align:left;">
-                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please enter the recipe name." CssClass=".validationError" ControlToValidate="tb_recipeName"></asp:RequiredFieldValidator>
+                             
                        </td>
                     </tr>
                      <tr>
@@ -69,11 +69,10 @@
                         </td>
 
                         <td style="text-align:left;">
-                            <asp:Label ID="lbl_recipeName" runat="server" Text='<%# Bind("recipe_name") %>' />
+                            <asp:Label ID="recipe_nameLabel" runat="server" Text='<%# Bind("recipe_name") %>' />
                        </td>
 
                          <td style="text-align:left;">
-                             <asp:RequiredFieldValidator ID="rfv_recipeName" runat="server" ErrorMessage="Please enter the recipe name." CssClass=".validationError" ControlToValidate="tb_recipeName"></asp:RequiredFieldValidator>
                        </td>
                     </tr>
 
@@ -83,10 +82,9 @@
                         </td>
 
                         <td style="text-align:left;">
-                            <asp:Label ID="lbl_submittedBy" runat="server" Text='<%# Bind("submitted_by") %>' />
+                            <asp:Label ID="submitted_byLabel" runat="server" Text='<%# Bind("submitted_by") %>' />
                         </td>
                             <td style="text-align:left;">
-                             <asp:RequiredFieldValidator ID="rfv_submittedBy" runat="server" ErrorMessage="Please enter your name." CssClass=".validationError" ControlToValidate="tb_submittedBy"></asp:RequiredFieldValidator>
                        </td>
                     </tr>
 
@@ -96,10 +94,9 @@
                         </td>
 
                         <td style="text-align:left;">
-                            <asp:Label ID="lbl_ingred1" runat="server" Text='<%# Bind("ingredient1") %>' />
+                            <asp:Label ID="ingredient1Label" runat="server" Text='<%# Bind("ingredient1") %>' />
                         </td>
                           <td style="text-align:left;">
-                             <asp:RequiredFieldValidator ID="rfv_ingred1" runat="server" ErrorMessage="Please enter an ingredient." CssClass=".validationError" ControlToValidate="tb_ingred1"></asp:RequiredFieldValidator>
                        </td>
 
                     </tr>
@@ -109,7 +106,7 @@
                         </td>
 
                         <td style="text-align:left;">
-                            <asp:Label ID="lbl_ingred2" runat="server" Text='<%# Bind("ingredient2") %>' />
+                            <asp:Label ID="ingredient2Label" runat="server" Text='<%# Bind("ingredient2") %>' />
                         </td>
 
                     </tr>
@@ -119,7 +116,7 @@
                         </td>
 
                         <td style="text-align:left;">
-                            <asp:Label ID="lbl_ingred3" runat="server" Text='<%# Bind("ingredient3") %>' />
+                            <asp:Label ID="ingredient3Label" runat="server" Text='<%# Bind("ingredient3") %>' />
                         </td>
 
                     </tr>
@@ -129,7 +126,7 @@
                         </td>
 
                         <td style="text-align:left;">
-                            <asp:Label ID="lbl_ingred4" runat="server" Text='<%# Bind("ingredient4") %>' />
+                            <asp:Label ID="ingredient4Label" runat="server" Text='<%# Bind("ingredient4") %>' />
                         </td>
 
                     </tr>
@@ -139,7 +136,7 @@
                         </td>
 
                         <td style="text-align:left;">
-                            <asp:Label ID="lbl_ingred5" runat="server" Text='<%# Bind("ingredient5") %>' />
+                            <asp:Label ID="ingredient5Label" runat="server" Text='<%# Bind("ingredient5") %>' />
                         </td>
 
                     </tr>
@@ -149,10 +146,9 @@
                         </td>
 
                         <td style="text-align:left;">
-                            <asp:Label ID="lbl_prep" runat="server" Text='<%# Bind("preparation") %>' />
+                            <asp:Label ID="preparationLabel" runat="server" Text='<%# Bind("preparation") %>' />
                         </td>
                           <td style="text-align:left;">
-                             <asp:RequiredFieldValidator ID="rfv_prep" runat="server" ErrorMessage="Please enter the preparation instructions." CssClass=".validationError" ControlToValidate="tb_prep"></asp:RequiredFieldValidator>
                        </td>
 
                     </tr>
@@ -162,23 +158,24 @@
                         </td>
 
                         <td style="text-align:left;">
-                            <asp:Label ID="lbl_notes" runat="server" Text='<%# Bind("notes") %>' />
+                            <asp:Label ID="notesLabel" runat="server" Text='<%# Bind("notes") %>' />
                         </td>
 
                     </tr>
                       <tr>
                         <td style="text-align:right;">
-                            <asp:Button ID="btn_Edit" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit" />
+                            <asp:LinkButton ID="EditButton" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit" />
                         </td>
 
                         <td style="text-align:left;">
-                            <asp:Button ID="btn_Delete" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" />
+                            <asp:LinkButton ID="DeleteButton" runat="server" CausesValidation="False" CommandName="Delete" Text="Delete" />
                         </td>
 
                     </tr>
 
                 </table>
-                              
+            
+                            
             </ItemTemplate>
         </asp:FormView>
     
